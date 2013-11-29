@@ -120,6 +120,9 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.gis',
+    'gunicorn',
+    'locations',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
@@ -156,3 +159,12 @@ LOGGING = {
         },
     }
 }
+
+TEMPLATE_DIRS = [
+    os.path.join('locations', 'templates')
+]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+import dj_database_url
+
