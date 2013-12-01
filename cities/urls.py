@@ -1,13 +1,16 @@
 from django.conf.urls import patterns, include, url
 
-# Uncomment the next two lines to enable the admin:
-# from django.contrib import admin
-# admin.autodiscover()
+from django.contrib import admin
+from django.views.generic import RedirectView
+
+admin.autodiscover()
+)
 
 urlpatterns = patterns('',
     # Examples:
-    # url(r'^$', 'cities.views.home', name='home'),
-    # url(r'^cities/', include('cities.foo.urls')),
+    url(r'^locations/', include('locations.urls')),
+    url(r'^$', RedirectView.as_view(url="locations/")),
+    url(r'^admin/', include(admin.site.urls)),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

@@ -4,6 +4,7 @@ from django.contrib.gis.measure import D
 from django.contrib.gis.geos import GEOSGeometry
 
 from locations.models import Location
+from locations.templatetags import distance
 
 
 class LocationTestCase(TestCase):
@@ -34,3 +35,21 @@ class LocationTestCase(TestCase):
 
         ams = ls[0]
         self.assertNotEqual(sf, ams)
+
+
+
+
+class DistanceFilterCase(TestCase):
+    fixtures = ["data/locations.json"]
+
+    def test_find_distance(self):
+        a, b = Location.objects.all()
+
+        result = distance.calc_distance(a, b)
+        self.assertEqual(result, 8794.624631776502)
+
+        self.assertRaises(TypeError, distance.calc_distance, a, 1)
+        self.assertRaises(TypeError, distance.calc_distance, 1, b)
+
+        result = distance.calc_distance(b, a)
+        self.assertEqual(result, 8794.624631776502)
